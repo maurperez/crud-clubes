@@ -1,0 +1,94 @@
+<div style="text-align: center; margin-bottom : 20rem">
+  <h1>{{data.name}}</h1>
+
+  <div class="row">
+    <div class="col">
+      <div class="card">
+        <div style="text-align: center; width: 100%">
+          <img src="{{data.teamInfo.crestUrl}}" class="card-img-top" alt="{{data.teamInfo.tla}}" style="width: 20rem;">
+        </div>
+
+        <div class="card-body">
+          <h5 class="card-tittle">Update info</h5>
+
+          <form method="POST" enctype="multipart/form-data">
+
+            <div class="form-group row" style="align-items: center;">
+              <label for="image" class="col-sm-2 col-form-label">Image</label>
+              <div class="col-sm-5" style="text-align: initial;">
+                <input type="file"  id="image" name="team-image">
+              </div>
+              <div class="col-sm-5">
+                <input type="text"  id="image" class="form-control" name="teamImageUrl" placeholder="Or enter an image url">
+              </div>
+              <div class="col" style="margin-top: 0.5rem;">
+                <p>(In case of not entering any new image, the old one will remain)</p>
+              </div>
+            </div>
+
+            <div class="form-group row">
+              <label for="name" class="col-sm-2 col-form-label">Name</label>
+              <div class="col-sm-10">
+                <input type="text" class="form-control" id="name" name="teamName" value="{{data.teamInfo.name}}">
+              </div>
+            </div>
+
+            <div class="form-group row">
+              <label for="short-name" class="col-sm-2 col-form-label">Short name</label>
+              <div class="col-sm-10">
+                <input type="text" class="form-control" id="short-name" name="teamShortName" value="{{data.teamInfo.shortName}}">
+              </div>
+            </div>
+
+
+            <div class="form-group row">
+              <label for="address" class="col-sm-2 col-form-label">Address</label>
+              <div class="col-sm-10">
+                <input type="text" class="form-control" id="address" name="teamAddress" value="{{data.teamInfo.address}}">
+              </div>
+            </div>
+            
+            <div class="form-group row">
+              <label for="phone" class="col-sm-2 col-form-label">Phone</label>
+              <div class="col-sm-10">
+                <input type="tel" class="form-control" id="phone" name="teamPhone" value="{{data.teamInfo.phone}}">
+              </div>
+            </div>
+            
+            <div class="form-group row">
+              <label for="email" class="col-sm-2 col-form-label">Email</label>
+              <div class="col-sm-10">
+                <input type="email" class="form-control" id="email" name="teamEmail" value="{{data.teamInfo.email}}">
+              </div>
+            </div>
+
+            <div class="form-group row">
+              <label for="website" class="col-sm-2 col-form-label">Website</label>
+              <div class="col-sm-10">
+                <input type="url" class="form-control" id="website" name="teamWebsite" value="{{data.teamInfo.website}}">
+              </div>
+            </div>
+
+            
+            <div class="form-group row">
+              <label for="venue" class="col-sm-2 col-form-label">Venue</label>
+              <div class="col-sm-10">
+                <input type="text" class="form-control" id="venue" name="teamVenue" value="{{data.teamInfo.venue}}">
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col">
+                <button type="submit" class="btn btn-success btn-block">Save changes</button>
+              </div>
+              <div class="col">
+                <a role="button" class="btn btn-danger btn-block" href="/team/{{data.teamInfo.tla}}">Cancel</a>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>

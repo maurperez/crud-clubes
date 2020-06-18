@@ -1,0 +1,116 @@
+<div style="text-align: center">
+  <h1>Create team</h1>
+
+  <div class="row">
+    <div class="col">
+      <div class="card">
+        <div class="card-body">
+
+          <form method="POST" enctype="multipart/form-data">
+
+            <div class="form-group row" style="align-items: center;">
+              <label for="image" class="col-sm-2 col-form-label">Image</label>
+              <div class="col-sm-5" style="text-align: initial;">
+                <input type="file"  id="image" name="team-image" class="{{data.errors.image}}">
+              </div>
+              <div class="col-sm-5">
+                <input type="text"  id="image" class="form-control {{data.errors.image}}" name="teamImageUrl" placeholder="Or enter an image url">
+              </div>
+            </div>
+
+            <div class="form-group row">
+              <label for="country" class="col-sm-2 col-form-label">Country</label>
+              <div class="col-sm-10">
+                <input type="text" class="form-control {{data.errors.country}}" id="country" name="teamCountry">
+              </div>
+            </div>
+
+            <div class="form-group row">
+              <label for="name" class="col-sm-2 col-form-label">Name</label>
+              <div class="col-sm-10">
+                <input type="text" class="form-control {{data.errors.name}}" id="name" name="teamName">
+              </div>
+            </div>
+
+            <div class="form-group row">
+              <label for="short-name" class="col-sm-2 col-form-label">Short name</label>
+              <div class="col-sm-10">
+                <input type="text" class="form-control" id="short-name" name="teamShortName">
+              </div>
+            </div>
+
+            <div class="form-group row">
+              <label for="tla" class="col-sm-2 col-form-label">Tla</label>
+              <div class="col-sm-10">
+                <input type="text" class="form-control {{data.errors.tla}}" id="tla" name="teamTla">
+              </div>
+            </div>
+
+            <div class="form-group row">
+              <label for="founded" class="col-sm-2 col-form-label">Year founded</label>
+              <div class="col-sm-10">
+                <input type="number" max="2020" min="1000" class="form-control {{data.errors.founded}}" id="founded" name="teamFounded">
+              </div>
+            </div>
+
+
+            <div class="form-group row">
+              <label for="address" class="col-sm-2 col-form-label">Address</label>
+              <div class="col-sm-10">
+                <input type="text" class="form-control {{data.errors.address}}" id="address" name="teamAddress">
+              </div>
+            </div>
+            
+            <div class="form-group row">
+              <label for="phone" class="col-sm-2 col-form-label">Phone</label>
+              <div class="col-sm-10">
+                <input type="tel" class="form-control" id="phone" name="teamPhone">
+              </div>
+            </div>
+            
+            <div class="form-group row">
+              <label for="email" class="col-sm-2 col-form-label">Email</label>
+              <div class="col-sm-10">
+                <input type="email" class="form-control" id="email" name="teamEmail">
+              </div>
+            </div>
+
+            <div class="form-group row">
+              <label for="website" class="col-sm-2 col-form-label">Website</label>
+              <div class="col-sm-10">
+                <input type="url" class="form-control" id="website" name="teamWebsite">
+              </div>
+            </div>
+
+            
+            <div class="form-group row">
+              <label for="venue" class="col-sm-2 col-form-label">Venue</label>
+              <div class="col-sm-10">
+                <input type="text" class="form-control" id="venue" name="teamVenue">
+              </div>
+            </div>
+
+            {{#if data.errors}}
+            <div class="alert alert-danger" role="alert" style="text-align: initial;">
+              {{#each data.errors}}
+                <li>{{this.msg}}</li>
+              {{/each}}
+            </div>
+            {{/if}}
+
+            <div class="row">
+              <div class="col">
+                <button type="submit" class="btn btn-primary btn-block">Create</button>
+              </div>
+              <div class="col">
+                <a role="button" href="/" class="btn btn-secondary btn-block">Cancel</a>
+              </div>
+            </div>
+
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
