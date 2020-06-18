@@ -1,0 +1,97 @@
+<div style="text-align: center; margin-bottom : 20rem">
+  <h1>{{data.teamInfo.name}}</h1>
+
+  <div class="row">
+    <div class="col">
+      <div class="card">
+        <div style="text-align: center; width : 100%">
+          <img src="{{data.teamInfo.crestUrl}}" class="card-img-top" alt="{{data.teamInfo.tla}}" style="width: 20rem;">
+        </div>
+        <div class="card-body">
+          <h5 class="card-title">Team info</h5>
+
+          <ul style="text-align: initial;">
+            <li><strong>{{data.teamInfo.area.name}}</strong></li>
+            <li><strong id="address">{{data.teamInfo.address}}</strong></li>
+            <li><strong>{{data.teamInfo.phone}}</strong></li>
+            <li><strong>{{data.teamInfo.website}}</strong></li>
+            <li><strong>{{data.teamInfo.email}}</strong></li>
+            <li><strong>{{data.teamInfo.venue}}</strong></li>
+            <li>Founded: <strong>{{data.teamInfo.founded}}</strong></li>
+          </ul>
+
+        </div>
+      </div>
+    </div>
+    <div class="col">
+      <div id="map" style="height: 100%; border-radius : 0.2rem"></div>
+    </div>
+  </div>
+  {{!-- <script src="/google-map.js"></script>
+  <script async defer
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAgQGZ2ht9bbQxTVuougW0JNplBm1mWqqA&callback=initMap">
+  </script> 
+            ----    Google Maps -----
+  --}}
+
+  <div class="accordion" id="accordion" style="margin-top: 1rem; margin-bottom : 2rem">
+    <div class="card">
+      <div class="card-header" id="head-competitions">
+        <h2 class="mb-0">
+          <button class="btn btn-link btn-block" aria-expanded="false" type="button" data-toggle="collapse" data-target="#competitions" aria-controls="competitions">
+            Active competitions
+          </button>
+        </h2>
+      </div>
+
+      <div class="collapse" id="competitions"  aria-labelledby="head-competitions" data-parent="#accordion">
+        <div class="card-body">
+          <ul class="list-group">
+            {{#if data.teamInfo.activeCompetitions}}
+              {{#each data.teamInfo.activeCompetitions}}
+                <li class="list-group-item">{{this.name}}</li>
+              {{/each}}
+              {{else}}
+              <li class="list-group-item">This team has not yet entered any competition</li>
+            {{/if}}
+          </ul>
+        </div>
+      </div>
+    </div>
+
+
+    <div class="card">
+      <div class="card-header" id="head-squad">
+        <h2 class="mb-0">
+          <button class="btn btn-link btn-block" aria-expanded="false" type="button" data-toggle="collapse" data-target="#squad" aria-controls="squad">
+            squad
+          </button>
+        </h2>
+      </div>
+
+      <div class="collapse" id="squad" aria-labelledby="head-squad" data-parent="#accordion">
+        <div class="card-body">
+          <ul class="list-group">
+            {{#if data.teamInfo.squad}}
+              {{#each data.teamInfo.squad}}
+                <li class="list-group-item">{{this.name}} - {{this.position}} ({{this.nationality}})</li>
+              {{/each}}
+              {{else}}
+              <li class="list-group-item">This team hasn't bought any players yet</li>
+            {{/if}}
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col">
+      <a role="button" class="btn btn-light btn-block" href="{{data.path}}/edit">Edit</a>
+    </div>
+    <div class="col">
+      <a role="button" class="btn btn-light btn-block" href="{{data.path}}/delete">Delete</a>
+    </div>
+  </div>
+
+</div>
