@@ -6,6 +6,7 @@ const hbs = exphbs.create({})
 const validateForm = require('./src/validate-inputs')
 const { check, validationResult } = require('express-validator')
 const bodyParser = require('body-parser')
+require('dotenv').config()
 
 const urlencoded = bodyParser.urlencoded()
 
@@ -93,7 +94,8 @@ app.get('/team/:id', (req, res) => {
     layout: 'app',
     data: {
       teamInfo: teamInfo,
-      path: req.path
+      path: req.path,
+      apiKey: process.env.GOOGLE_KEY
     }
   })
 })

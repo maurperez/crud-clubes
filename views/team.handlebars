@@ -18,21 +18,21 @@
             <li><strong>{{data.teamInfo.email}}</strong></li>
             <li><strong>{{data.teamInfo.venue}}</strong></li>
             <li>Founded: <strong>{{data.teamInfo.founded}}</strong></li>
+            
           </ul>
 
         </div>
       </div>
     </div>
     <div class="col">
-      <div id="map" style="height: 100%; border-radius : 0.2rem"></div>
+      <iframe frameborder="0"
+        height="100%"
+        width="100%"
+        style="border:0; border-radius: 0.2rem"
+        src="https://www.google.com/maps/embed/v1/place?key={{data.apiKey}}&q={{data.teamInfo.address}},{{data.teamInfo.area.name}}&zoom=15">
+      </iframe>
     </div>
   </div>
-  {{!-- <script src="/google-map.js"></script>
-  <script async defer
-    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAgQGZ2ht9bbQxTVuougW0JNplBm1mWqqA&callback=initMap">
-  </script> 
-            ----    Google Maps -----
-  --}}
 
   <div class="accordion" id="accordion" style="margin-top: 1rem; margin-bottom : 2rem">
     <div class="card">
