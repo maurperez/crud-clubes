@@ -1,5 +1,5 @@
 const fs = require('fs')
-const teamMapper = require('./mappers/teamMap.js')
+const teamMapper = require('../mappers/teamMap.js')
 
 const addNewTeam = (teamData, imageFile) => {
   const team = teamMapper.map(teamData, imageFile)
