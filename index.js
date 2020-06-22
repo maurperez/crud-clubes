@@ -3,9 +3,10 @@ const express = require('express')
 const multer = require('multer')
 const exphbs = require('express-handlebars')
 const hbs = exphbs.create({})
-const validateForm = require('./src/validate-inputs')
+const validateForm = require('./src/helpers/validate-inputs.js')
 const { check, validationResult } = require('express-validator')
 const bodyParser = require('body-parser')
+const teamHandlers = require('./src/data-handler/team-handlers.js')
 require('dotenv').config()
 
 const urlencoded = bodyParser.urlencoded()
@@ -35,18 +36,18 @@ app.get('/newTeam', (req, res) => {
 
 app.post('/newTeam',
   upload.single('team-image'),
-  [check('teamEmail').normalizeEmail().isEmail().withMessage('E-mail is invalid'),
-    check('teamFounded').isNumeric().withMessage('Year of fundation is required').isInt({ min: 1000, max: 2020 }).withMessage('Year of fundation is invalid'),
-    check('teamTla').not().isEmpty().withMessage('Tla of team is required'),
-    check('teamName').not().isEmpty().withMessage('Name of team is required'),
-    check('teamPhone').not().isEmpty().withMessage('Phone number is required'),
-    check('teamVenue').not().isEmpty().withMessage('Venue is required'),
-    check('teamTla').custom(tla => {
+  [check('email').normalizeEmail().isEmail().withMessage('E-mail is invalid'),
+    check('founded').isNumeric().withMessage('Year of fundation is required').isInt({ min: 1000, max: 2020 }).withMessage('Year of fundation is invalid'),
+    check('tla').not().isEmpty().withMessage('Tla of team is required'),
+    check('name').not().isEmpty().withMessage('Name of team is required'),
+    check('phone').not().isEmpty().withMessage('Phone number is required'),
+    check('venue').not().isEmpty().withMessage('Venue is required'),
+    check('tla').custom(tla => {
       if (!validateForm.validateTla(tla)) {
         throw new Error('This tla is alredy used')
       }
       return true
-    }), check('teamName').custom(name => {
+    }), check('name').custom(name => {
       if (!validateForm.validateName(name)) {
         throw new Error('This name is alredy used')
       }
@@ -57,10 +58,9 @@ app.post('/newTeam',
       await check('teamImageUrl').not().isEmpty().withMessage('One image is required').run(req)
       await check('teamImageUrl').isURL().withMessage('The image url is invalid').run(req)
     }
-
     const errors = validationResult(req)
 
-    if (errors.errors.length > 0) {
+    if (!errors.isEmpty()) {
       res.render('new-team', {
         layout: 'app',
         data: {
@@ -68,9 +68,7 @@ app.post('/newTeam',
         }
       })
     } else {
-      const createTeam = require('./src/team-handlers.js')
-
-      createTeam.createTeam(req.body, req.file)
+      teamHandlers.addNewTeam(req.body, req.file)
 
       res.redirect('/')
     }
@@ -112,52 +110,39 @@ app.get('/team/:id/edit', (req, res) => {
   })
 })
 
-app.post('/team/:id/edit', upload.single('team-image'), (req, res) => {
-  const teamTla = req.param('id')
-  const team = JSON.parse(fs.readFileSync(`./data/equipos/${teamTla}.json`))
-  const listTeam = JSON.parse(fs.readFileSync('data/equipos.json'))
+app.post('/team/:id/edit',
+  upload.single('team-image'),
+  [check('address').notEmpty().withMessage('Address is required'),
+    check('email').isEmail().withMessage('Ivalid E-mail'),
+    check('venue').notEmpty().withMessage('A venue is required'),
+    check('name').notEmpty().withMessage('The team require a name'),
+    check('website').isURL().withMessage('The team website is invalid')
+  ], async (req, res) => {
+    const teamTla = req.param('id')
+    const teamHandlers = require('./src/team-handlers.js')
 
-  const { teamImageUrl, teamAddress, teamPhone, teamEmail, teamVenue, teamName, teamShortName, teamWebsite } = req.body
+    if (req.body.teamImageUrl) {
+      await check('teamImageUrl').isURL().run(req)
+    }
 
-  if (req.file) {
-    team.crestUrl = '/images/'.concat(req.file.filename)
-  } else if (teamImageUrl) {
-    team.crestUrl = teamImageUrl
-  }
+    const errors = validationResult(req)
 
-  listTeam.forEach(team => {
-    if (team.tla === teamTla) {
-      team.name = teamName
-      team.shortName = teamShortName
-      team.address = teamAddress
-      team.phone = teamPhone
-      team.email = teamEmail
-      team.website = teamWebsite
-      team.venue = teamVenue
-      team.lastUpdated = JSON.stringify(new Date())
+    if (errors.isEmpty()) {
+      teamHandlers.editTeam(req.body, teamTla, req.file)
 
-      if (req.file) {
-        team.crestUrl = '/images/'.concat(req.file.filename)
-      } else if (teamImageUrl) {
-        team.crestUrl = teamImageUrl
-      }
+      res.redirect(`/team/${teamTla}`)
+    } else {
+      const teamOriginalInfo = JSON.parse(fs.readFileSync(`./data/equipos/${teamTla}.json`))
+
+      res.render('team-edit', {
+        layout: 'app',
+        data: {
+          teamInfo: teamOriginalInfo,
+          errors: errors.errors
+        }
+      })
     }
   })
-
-  team.name = teamName
-  team.shortName = teamShortName
-  team.website = teamWebsite
-  team.address = teamAddress
-  team.phone = teamPhone
-  team.email = teamEmail
-  team.venue = teamVenue
-  team.lastUpdated = JSON.stringify(new Date())
-
-  fs.writeFileSync(`data/equipos/${teamTla}.json`, JSON.stringify(team))
-  fs.writeFileSync('data/equipos.json', JSON.stringify(listTeam))
-
-  res.redirect('/team/'.concat(teamTla))
-})
 
 app.get('/team/:id/delete', (req, res) => {
   res.render('team-delete', {
@@ -170,14 +155,9 @@ app.post('/team/:id/delete', urlencoded, (req, res) => {
   const teamNamePassed = req.body.teamName
 
   const TEAM = JSON.parse(fs.readFileSync(`data/equipos/${teamTLA}.json`))
-  console.log(TEAM.name, teamTLA, teamNamePassed)
 
   if (teamNamePassed === TEAM.name) {
-    const teamHandler = require('./src/team-handlers.js')
-
-    fs.unlinkSync(`./data/equipos/${teamTLA}.json`)
-    teamHandler.deleteTeamFromList(teamTLA)
-
+    teamHandlers.deleteTeam(teamTLA)
     res.redirect('/team')
   } else {
     res.render('team-delete', {
