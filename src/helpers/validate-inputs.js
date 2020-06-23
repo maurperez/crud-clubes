@@ -3,17 +3,13 @@ const fs = require('fs')
 const validateTla = (tla) => {
   const teamsList = JSON.parse(fs.readFileSync('./data/equipos.json'))
 
-  if (teamsList.every(team => team.tla !== tla)) {
-    return true
-  } else { return false }
+  return teamsList.every(team => team.tla !== tla)
 }
 
 const validateName = (name) => {
   const teamsList = JSON.parse(fs.readFileSync('./data/equipos.json'))
 
-  if (teamsList.every(team => team.name !== name)) {
-    return true
-  } else { return false }
+  return teamsList.every(team => team.name !== name)
 }
 
 exports.validateTla = validateTla

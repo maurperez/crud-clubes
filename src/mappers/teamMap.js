@@ -20,8 +20,8 @@ const teamMapper = (teamData, imageFile, competitions, squad) => {
     id: 1,
     name: teamData.country
   }
-  const activeCompetitions = competitions !== undefined ? competitions : []
-  const activeSquad = squad !== undefined ? squad : []
+  const activeCompetitions = competitions || []
+  const activeSquad = squad || []
 
   return new team.Team(ID, name, shortName, tla, area, activeCompetitions, activeSquad, crestUrl, address, phone, website, email, founded, venue)
 }

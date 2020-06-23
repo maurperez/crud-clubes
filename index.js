@@ -119,7 +119,6 @@ app.post('/team/:id/edit',
     check('website').isURL().withMessage('The team website is invalid')
   ], async (req, res) => {
     const teamTla = req.param('id')
-    const teamHandlers = require('./src/team-handlers.js')
 
     if (req.body.teamImageUrl) {
       await check('teamImageUrl').isURL().run(req)
