@@ -20,8 +20,6 @@ app.set('view engine', 'handlebars')
 app.use(express.static(`${__dirname}/src`))
 app.use(express.static(`${__dirname}/uploads`))
 
-const PORT = 8080
-
 app.get('/', (req, res) => {
   res.render('home', {
     layout: 'app'
@@ -168,5 +166,5 @@ app.post('/team/:id/delete', urlencoded, (req, res) => {
   }
 })
 
-app.listen(PORT)
+app.listen(process.env.PORT || 8080)
 console.log('escuchando en el puerto '.concat(PORT))
