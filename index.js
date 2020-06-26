@@ -62,7 +62,8 @@ app.post('/newTeam',
       res.render('new-team', {
         layout: 'app',
         data: {
-          errors: errors.errors
+          errors: errors.errors,
+          previousData: req.body
         }
       })
     } else {

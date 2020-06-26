@@ -2,7 +2,7 @@
   <h1>{{data.teamInfo.name}}</h1>
 
   <div class="row">
-    <div class="col-sm">
+    <div class="col-md">
       <div class="card">
         <div style="text-align: center; width : 100%">
           <img src="{{data.teamInfo.crestUrl}}" class="card-img-top" alt="{{data.teamInfo.tla}}" style="height: 450px; padding: 0.5rem">
@@ -24,7 +24,7 @@
         </div>
       </div>
     </div>
-    <div class="col-sm mt-2 mt-sm-auto">
+    <div class="col-md mt-2 mt-md-0">
       <iframe frameborder="0"
         height="100%"
         width="100%"
@@ -73,9 +73,26 @@
         <div class="card-body">
           <ul class="list-group">
             {{#if data.teamInfo.squad}}
-              {{#each data.teamInfo.squad}}
-                <li class="list-group-item">{{this.name}} - {{this.position}} ({{this.nationality}})</li>
-              {{/each}}
+              <table class="table table-bordered table-responsive-md" >
+                <thead>
+                  <tr>
+                    <th>Name</th>
+                    <th>Position</th>
+                    <th>Nationality</th>
+                    <th>Date of birth</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {{#each data.teamInfo.squad}}
+                    <tr>
+                      <th>{{this.name}}</th>
+                      <th>{{this.position}}</th>
+                      <th>{{this.nationality}}</th>
+                      <th>{{this.dateOfBirth}}</th>
+                    </tr>
+                  {{/each}}
+                </tbody>
+              </table>
               {{else}}
               <li class="list-group-item">This team hasn't bought any players yet</li>
             {{/if}}

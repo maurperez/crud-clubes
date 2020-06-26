@@ -11,45 +11,45 @@
             <div class="form-group row" style="align-items: center;">
               <label for="image" class="col-sm-2 col-form-label">Image</label>
               <div class="col-sm-5" style="text-align: initial;">
-                <input type="file"  id="image" name="team-image" class="{{data.errors.image}}">
+                <input type="file"  id="image" name="team-image">
               </div>
               <div class="col-sm-5">
-                <input type="text"  id="image" class="form-control {{data.errors.image}}" name="teamImageUrl" placeholder="Or enter an image url">
+                <input type="text"  id="image" class="form-control" name="teamImageUrl" value="{{data.previousData.teamImageUrl}}" placeholder="Or enter an image url">
               </div>
             </div>
 
             <div class="form-group row">
               <label for="country" class="col-sm-2 col-form-label">Country</label>
               <div class="col-sm-10">
-                <input type="text" class="form-control {{data.errors.country}}" id="country" name="country">
+                <input type="text" class="form-control" id="country" name="country" value="{{data.previousData.country}}">
               </div>
             </div>
 
             <div class="form-group row">
               <label for="name" class="col-sm-2 col-form-label">Name</label>
               <div class="col-sm-10">
-                <input type="text" class="form-control {{data.errors.name}}" id="name" name="name">
+                <input type="text" class="form-control" id="name" name="name" value="{{data.previousData.name}}">
               </div>
             </div>
 
             <div class="form-group row">
               <label for="short-name" class="col-sm-2 col-form-label">Short name</label>
               <div class="col-sm-10">
-                <input type="text" class="form-control" id="short-name" name="shortName">
+                <input type="text" class="form-control" id="short-name" name="shortName" value="{{data.previousData.shortName}}">
               </div>
             </div>
 
             <div class="form-group row">
               <label for="tla" class="col-sm-2 col-form-label">Tla</label>
               <div class="col-sm-10">
-                <input type="text" class="form-control {{data.errors.tla}}" id="tla" name="tla">
+                <input type="text" class="form-control" id="tla" name="tla" value="{{data.previousData.tla}}">
               </div>
             </div>
 
             <div class="form-group row">
               <label for="founded" class="col-sm-2 col-form-label">Year founded</label>
               <div class="col-sm-10">
-                <input type="number" max="2020" min="1000" class="form-control {{data.errors.founded}}" id="founded" name="founded">
+                <input type="number" max="2020" min="1000" class="form-control" id="founded" name="founded" value="{{data.previousData.founded}}">
               </div>
             </div>
 
@@ -57,28 +57,28 @@
             <div class="form-group row">
               <label for="address" class="col-sm-2 col-form-label">Address</label>
               <div class="col-sm-10">
-                <input type="text" class="form-control {{data.errors.address}}" id="address" name="address">
+                <input type="text" class="form-control" id="address" name="address" value="{{data.previousData.address}}">
               </div>
             </div>
             
             <div class="form-group row">
               <label for="phone" class="col-sm-2 col-form-label">Phone</label>
               <div class="col-sm-10">
-                <input type="tel" class="form-control" id="phone" name="phone">
+                <input type="tel" class="form-control" id="phone" name="phone" value="{{data.previousData.phone}}">
               </div>
             </div>
             
             <div class="form-group row">
               <label for="email" class="col-sm-2 col-form-label">Email</label>
               <div class="col-sm-10">
-                <input type="email" class="form-control" id="email" name="email">
+                <input type="email" class="form-control" id="email" name="email" value="{{data.previousData.email}}">
               </div>
             </div>
 
             <div class="form-group row">
               <label for="website" class="col-sm-2 col-form-label">Website</label>
               <div class="col-sm-10">
-                <input type="url" class="form-control" id="website" name="website">
+                <input type="url" class="form-control" id="website" name="website" value="{{data.previousData.website}}">
               </div>
             </div>
 
@@ -86,7 +86,7 @@
             <div class="form-group row">
               <label for="venue" class="col-sm-2 col-form-label">Venue</label>
               <div class="col-sm-10">
-                <input type="text" class="form-control" id="venue" name="venue">
+                <input type="text" class="form-control" id="venue" name="venue" value="{{data.previousData.venue}}">
               </div>
             </div>
 
